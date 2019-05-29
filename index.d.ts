@@ -729,7 +729,12 @@ declare namespace Tone {
      * (Web Worker [default]), “timeout” (setTimeout),
      * or “offline” (none).
      */
-    clockSource: string | Encoding.Seconds;
+    clockSource: string;
+
+    /**
+     * Is an instanceof Tone.Context
+     */
+    isContext: boolean
 
     /**
      * The type of playback, which affects tradeoffs between audio
@@ -746,6 +751,11 @@ declare namespace Tone {
      * The amount of time events are scheduled into the future
      */
     lookAhead: number;
+
+    /**
+     * The unwrapped AudioContext.
+     */
+    rawContext: AudioContext
 
     /**
      * How often the Web Worker callback is invoked. This number
@@ -765,12 +775,6 @@ declare namespace Tone {
      * Tries to resume the context if it’s not started.
      */
     close(): Promise<any>;
-
-    createAnalyser(): AnalyserNode;
-    createBiquadFilter(): BiquadFilterNode;
-    createConstantSource(): ConstantSourceNode;
-    createPanner(): PannerNode;
-    createStereoPanner(): StereoPannerNode;
 
     /**
      * Unlike other dispose methods, this returns a Promise which
@@ -793,7 +797,7 @@ declare namespace Tone {
      * Promise which is invoked when the context is running.
      * Tries to resume the context if it’s not started.
      */
-    ready(): Promise<any>;
+    resume(): Promise<any>;
 
     /**
      * A setTimeout which is gaurenteed by the clock source.
