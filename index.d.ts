@@ -3553,7 +3553,7 @@ declare namespace Tone {
    * number of patterns
    */
   class Pattern extends Loop {
-    constructor(callback: Callback, values: ReadonlyArray<Encoding.Note>)
+    constructor(callback: Callback, values: ReadonlyArray<Encoding.Note>, pattern: ControlPattern)
 
     /**
      * The current index in the values array
