@@ -136,7 +136,7 @@ declare class Tone {
   static now(): number;
 
   /** The AudioContext */
-  readonly context: Tone.Context;
+  static readonly context: Tone.Context;
 
   /**
    * Recieve the input from the desired channelName to the input
@@ -1101,7 +1101,7 @@ declare namespace Tone {
     /**
      * Pause the transport and all sources synced to the transport.
      */
-    pause(time: Encoding.Time): this;
+    pause(time?: Encoding.Time): this;
 
     /**
      * Schedule an event along the timeline.
@@ -3452,9 +3452,7 @@ declare namespace Tone {
     at(time: Encoding.TransportTime, value?: any): Event;
   }
 
-  type NoteArray = ReadonlyArray<Encoding.Note>;
-  type NoteSequence = ReadonlyArray<Encoding.Note | NoteArray>;
-  type SequenceArray = ReadonlyArray<Encoding.Note | NoteArray | NoteSequence>
+  type SequenceCallback<T> = (time: Encoding.Time, value: T) => void;
 
   /**
    * A sequence is an alternate notation of a part. Instead
@@ -3463,8 +3461,8 @@ declare namespace Tone {
    * subdivision. Sub-arrays will subdivide that beat by the
    * number of items are in the array
    */
-  class Sequence extends Part {
-    constructor(callback: Callback, events: SequenceArray, subdivision: Encoding.Time)
+  class Sequence<T> extends Part {
+    constructor(callback: SequenceCallback<T>, events: ReadonlyArray<T>, subdivision: Encoding.Time)
 
     /**
      * The subdivision of the sequence. This can only be set
@@ -5388,7 +5386,7 @@ declare namespace Tone {
      * Returns a promise which resolves with the list
      * of audio input devices available
      */
-    static enumerateDevise(): Promise<ReadonlyArray<MediaDeviceInfo>>
+    static enumerateDevices(): Promise<ReadonlyArray<MediaDeviceInfo>>
 
     /**
      * Returns an identifier for the represented device that
