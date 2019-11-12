@@ -3417,9 +3417,9 @@ declare namespace Tone {
     stop(time: Encoding.TransportTime): this;
   }
 
-  type TimeEventPair = [Encoding.Time, Encoding.Note];
+  type TimeEventPair<T=Encoding.Note> = [Encoding.Time, T];
 
-  interface TimeEventObject {
+  interface TimeEventObject<T=Encoding.Note> {
     time: Encoding.Time;
     note: Encoding.Note;
     dur?: Encoding.Note;
@@ -3430,8 +3430,8 @@ declare namespace Tone {
    * Tone.Part is a collection Tone.Events which can be
    * started/stopped and looped as a single unit
    */
-  class Part extends Event {
-    constructor(callback: Callback<[Encoding.Time, TimeEventObject]>, events: ReadonlyArray<TimeEventPair | TimeEventObject>)
+  class Part<T=Encoding.Note> extends Event {
+    constructor(callback: Callback<[Encoding.Time, T]>, events: ReadonlyArray<TimeEventPair<T> | TimeEventObject>)
 
     /**
      * The number of notes in the part
