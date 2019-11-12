@@ -3546,12 +3546,13 @@ declare namespace Tone {
     stop(time: Encoding.TransportTime): this;
   }
 
+  type GenericCallback<T> = (time: Encoding.Time, value: T) => void;
   /**
    * Tone.Pattern arpeggiates between the given notes in a
    * number of patterns
    */
-  class Pattern extends Loop {
-    constructor(callback: Callback, values: ReadonlyArray<Encoding.Note>, pattern: ControlPattern)
+  class Pattern<T> extends Loop {
+    constructor(callback: GenericCallback<T>, values: ReadonlyArray<T>)
 
     /**
      * The current index in the values array
